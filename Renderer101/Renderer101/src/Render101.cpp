@@ -12,7 +12,8 @@ Here is hoping....
 
 
 
-//#include <iostream>
+#include <iostream>
+#include <GL\glew.h>
 #include <GLFW/glfw3.h>
 
 
@@ -26,8 +27,12 @@ int main(void)
 	if (!glfwInit())
 		return -1;
 
+
 	/* Create a windowed mode window and its OpenGL context */
 	window = glfwCreateWindow(640, 480, "Render101", NULL, NULL);
+
+	
+
 	if (!window)
 	{
 		glfwTerminate();
@@ -36,6 +41,12 @@ int main(void)
 
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
+
+	//GLEW only works after we created a openGl context, in other words, after we create a window
+	if (glewInit() != GLEW_OK)
+		std::cout << "Error! Glew Not Ok" << std::endl;
+	
+	std::cout << glGetString(GL_VERSION) << std::endl;
 
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
